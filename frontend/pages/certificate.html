@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate — AMDOX Technologies</title>
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/certificate.css" />
+  <!-- jsPDF + html2canvas for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div id="page-loader">
+  <div class="loader-logo"><span class="gold-text">AMDOX</span></div>
+  <p style="color:var(--navy-200);font-size:0.85rem;letter-spacing:0.1em;margin-top:4px">TECHNOLOGIES</p>
+  <div class="loader-bar" style="margin-top:20px"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- Action Bar (hidden when printing) -->
+<div class="cert-action-bar" id="actionBar">
+  <a href="../index.html" class="btn btn-ghost btn-sm">← Back</a>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-outline" onclick="printCert()">🖨 Print</button>
+    <button class="btn btn-primary" id="downloadBtn" onclick="downloadPDF()">
+      <span id="downloadBtnText">⬇ Download PDF</span>
+      <span id="downloadSpinner" class="spinner hidden"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Certificate Wrapper -->
+<div class="cert-page-wrapper">
+
+  <!-- Not found state -->
+  <div id="certNotFound" class="hidden" style="text-align:center;padding:80px 24px">
+    <div style="font-size:4rem;margin-bottom:20px">🔍</div>
+    <h2 style="margin-bottom:12px">Certificate Not Found</h2>
+    <p class="text-muted">No certificate data found. Please go back and verify your certificate ID.</p>
+    <a href="../index.html" class="btn btn-primary" style="margin-top:24px">← Go Back</a>
+  </div>
+
+  <!-- The Actual Certificate -->
+  <div id="certificateDoc" class="certificate-doc">
+
+    <!-- Outer border frame -->
+    <div class="cert-outer-frame">
+      <div class="cert-inner-frame">
+
+        <!-- Corner ornaments -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Top band -->
+        <div class="cert-top-band">
+          <div class="cert-header-left">
+            <div class="cert-logo-wrap">
+              <div class="cert-logo-circle">A</div>
+            </div>
+            <div>
+              <div class="cert-org-name">AMDOX Technologies</div>
+              <div class="cert-org-sub">Empowering Future Professionals</div>
+            </div>
+          </div>
+          <div class="cert-header-right">
+            <div class="cert-id-label">CERTIFICATE ID</div>
+            <div class="cert-id-value" id="certIdDisplay">AMDOX-2024-0001</div>
+          </div>
+        </div>
+
+        <!-- Title area -->
+        <div class="cert-title-area">
+          <div class="cert-title-line"></div>
+          <div class="cert-title-text">
+            <div class="cert-presents">This is to certify that</div>
+          </div>
+          <div class="cert-title-line"></div>
+        </div>
+
+        <!-- Student Name -->
+        <div class="cert-name-area">
+          <div class="cert-student-name" id="certStudentName">Student Name</div>
+          <div class="cert-name-underline"></div>
+        </div>
+
+        <!-- Body text -->
+        <div class="cert-body-text">
+          has successfully completed the internship program in
+        </div>
+
+        <!-- Domain -->
+        <div class="cert-domain-badge">
+          <span id="certDomain">Internship Domain</span>
+        </div>
+
+        <!-- Duration row -->
+        <div class="cert-meta-row">
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">From</div>
+            <div class="cert-meta-value" id="certStartDate">—</div>
+          </div>
+          <div class="cert-meta-dot">⬥</div>
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">To</div>
+            <div class="cert-meta-value" id="certEndDate">—</div>
+          </div>
+          <div class="cert-meta-dot" id="durationDotWrap">⬥</div>
+          <div class="cert-meta-item" id="durationWrap">
+            <div class="cert-meta-label">Duration</div>
+            <div class="cert-meta-value" id="certDuration">—</div>
+          </div>
+        </div>
+
+        <!-- Grade -->
+        <div class="cert-grade-row">
+          <div class="cert-grade-wrap">
+            <div class="cert-grade-label">Performance Grade</div>
+            <div class="cert-grade-value" id="certGrade">Excellent</div>
+          </div>
+        </div>
+
+        <!-- Divider ornament -->
+        <div class="cert-ornament-divider">
+          <span class="ornament-line"></span>
+          <span class="ornament-diamond">◆</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <!-- Footer -->
+        <div class="cert-footer">
+          <div class="cert-sign-block">
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-name">Authorized Signatory</div>
+            <div class="cert-sign-title">AMDOX Technologies</div>
+          </div>
+          <div class="cert-seal">
+            <div class="cert-seal-inner">
+              <div class="cert-seal-text">AMDOX</div>
+              <div class="cert-seal-subtext">VERIFIED</div>
+              <div class="cert-seal-year" id="certYear">2024</div>
+            </div>
+          </div>
+          <div class="cert-sign-block" style="text-align:right">
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-name">Issue Date</div>
+            <div class="cert-sign-title" id="certIssueDate">—</div>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="cert-bottom-bar">
+          <span>Verify at: amdox.in</span>
+          <span id="certIdFooter">AMDOX-2024-0001</span>
+          <span>© 2024 AMDOX Technologies. All rights reserved.</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/certificate.js"></script>
+</body>
+</html>

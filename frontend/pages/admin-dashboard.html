@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — AMDOX Admin</title>
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body>
+
+<div id="page-loader">
+  <div class="loader-logo"><span class="gold-text">AMDOX</span></div>
+  <p style="color:var(--navy-200);font-size:0.85rem;letter-spacing:0.1em;margin-top:4px">TECHNOLOGIES</p>
+  <div class="loader-bar" style="margin-top:20px"><div class="loader-bar-fill"></div></div>
+</div>
+
+<div class="admin-layout">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="nav-logo">
+        <div class="logo-icon">A</div>
+        <div>
+          <div class="logo-name">AMDOX</div>
+          <div class="logo-sub">Technologies</div>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebarClose">✕</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="admin-dashboard.html" class="nav-item active">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="admin-upload.html" class="nav-item">
+        <span class="nav-icon">📤</span>
+        <span>Upload Certificates</span>
+      </a>
+      <a href="admin-students.html" class="nav-item">
+        <span class="nav-icon">🎓</span>
+        <span>Manage Certificates</span>
+      </a>
+
+      <div class="nav-section-label" style="margin-top:16px">System</div>
+      <a href="../index.html" class="nav-item" target="_blank">
+        <span class="nav-icon">🔍</span>
+        <span>Verification Portal</span>
+      </a>
+      <button class="nav-item nav-item-btn" onclick="auth.logout()">
+        <span class="nav-icon">🚪</span>
+        <span>Logout</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-avatar-wrap">
+        <div class="admin-avatar" id="adminAvatarSidebar">A</div>
+        <div>
+          <div class="admin-name-sidebar" id="adminNameSidebar">Admin</div>
+          <div class="admin-role-sidebar">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="admin-main">
+
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" id="menuBtn">☰</button>
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-subtitle">Welcome back, <span id="adminNameTop" class="text-gold">Admin</span></p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbarDate"></div>
+        <a href="admin-upload.html" class="btn btn-primary btn-sm">+ Upload Excel</a>
+      </div>
+    </header>
+
+    <div class="admin-content">
+
+      <!-- ── STAT CARDS ─────────────────────────────────────── -->
+      <div class="stats-grid">
+        <div class="stat-card glass-card">
+          <div class="stat-card-icon" style="background:rgba(212,160,23,0.1);color:var(--gold-400)">🎓</div>
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statTotal">—</div>
+            <div class="stat-card-label">Total Certificates</div>
+          </div>
+          <div class="stat-card-trend up" id="statTotalTrend"></div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-card-icon" style="background:rgba(16,185,129,0.1);color:#10b981">✓</div>
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statActive">—</div>
+            <div class="stat-card-label">Active Certificates</div>
+          </div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-card-icon" style="background:rgba(59,130,246,0.1);color:#60a5fa">⬇</div>
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statDownloads">—</div>
+            <div class="stat-card-label">Total Downloads</div>
+          </div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-card-icon" style="background:rgba(239,68,68,0.1);color:#f87171">⛔</div>
+          <div class="stat-card-body">
+            <div class="stat-card-num" id="statInactive">—</div>
+            <div class="stat-card-label">Inactive Certificates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TWO COLUMNS ───────────────────────────────────── -->
+      <div class="dashboard-grid">
+
+        <!-- Recent Certificates -->
+        <div class="glass-card dash-card">
+          <div class="dash-card-header">
+            <h3>Recent Certificates</h3>
+            <a href="admin-students.html" class="btn btn-ghost btn-sm">View All</a>
+          </div>
+          <div id="recentCertsTable">
+            <div class="loading-rows">
+              <div class="skeleton" style="height:44px;border-radius:8px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:44px;border-radius:8px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:44px;border-radius:8px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:44px;border-radius:8px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="dash-right-col">
+
+          <!-- Domain Breakdown -->
+          <div class="glass-card dash-card">
+            <div class="dash-card-header">
+              <h3>Top Domains</h3>
+            </div>
+            <div id="domainList">
+              <div class="skeleton" style="height:36px;border-radius:6px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:36px;border-radius:6px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:36px;border-radius:6px"></div>
+            </div>
+          </div>
+
+          <!-- Recent Uploads -->
+          <div class="glass-card dash-card" style="margin-top:24px">
+            <div class="dash-card-header">
+              <h3>Recent Uploads</h3>
+              <a href="admin-upload.html" class="btn btn-ghost btn-sm">+ New Upload</a>
+            </div>
+            <div id="uploadList">
+              <div class="skeleton" style="height:60px;border-radius:8px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:60px;border-radius:8px"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── QUICK ACTIONS ─────────────────────────────────── -->
+      <div class="glass-card quick-actions-card">
+        <h3 style="margin-bottom:20px;font-family:var(--font-display)">Quick Actions</h3>
+        <div class="quick-actions-grid">
+          <a href="admin-upload.html" class="quick-action-item">
+            <div class="qa-icon">📤</div>
+            <div class="qa-label">Upload Excel</div>
+            <div class="qa-desc">Bulk import certificates</div>
+          </a>
+          <a href="admin-students.html" class="quick-action-item">
+            <div class="qa-icon">🔍</div>
+            <div class="qa-label">Search Certificates</div>
+            <div class="qa-desc">Find & manage records</div>
+          </a>
+          <a href="../index.html" target="_blank" class="quick-action-item">
+            <div class="qa-icon">🌐</div>
+            <div class="qa-label">Public Portal</div>
+            <div class="qa-desc">Open verification page</div>
+          </a>
+          <a href="admin-students.html?export=true" class="quick-action-item">
+            <div class="qa-icon">📥</div>
+            <div class="qa-label">Export Data</div>
+            <div class="qa-desc">Download all records</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/admin-common.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMDOX Certificate Verification System — Secure & Instant</title>
+  <meta name="description" content="Verify your internship certificate issued by AMDOX Technologies instantly and securely with our premium 3D-powered verification portal." />
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/home.css" />
+</head>
+<body>
+
+<!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-3d-ring">
+    <div class="ring-segment"></div>
+    <div class="ring-segment"></div>
+    <div class="ring-segment"></div>
+  </div>
+  <div class="loader-logo"><span class="gold-text">AMDOX</span></div>
+  <p style="color:var(--navy-200);font-size:0.85rem;letter-spacing:0.1em;margin-top:4px">TECHNOLOGIES</p>
+  <div class="loader-bar" style="margin-top:20px"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- 3D Canvas Background -->
+<canvas id="three-canvas"></canvas>
+
+<!-- Aurora Glow Layers -->
+<div class="aurora-container">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+</div>
+
+<!-- Particle Background -->
+<div class="particles-bg" id="particles"></div>
+
+<!-- ── NAVBAR ───────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">A</div>
+      <div>
+        <div class="logo-name">AMDOX</div>
+        <div class="logo-sub">Technologies</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#verify-section" class="nav-link">Verify Certificate</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="pages/admin-login.html" class="btn btn-outline btn-sm">Admin Login</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#verify-section">Verify Certificate</a>
+  <a href="#features">Features</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="pages/admin-login.html">Admin Login</a>
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge anim-fade-up">
+        <span class="badge-dot"></span>
+        <span class="badge-pulse-ring"></span>
+        Trusted Certificate Authority
+      </div>
+
+      <h1 class="hero-title anim-fade-up-delay-1">
+        Verify Your<br />
+        <span class="gold-text glitch-text" data-text="Internship Certificate">Internship Certificate</span><br />
+        <span class="hero-title-accent">Instantly</span>
+      </h1>
+
+      <p class="hero-desc anim-fade-up-delay-2">
+        AMDOX Technologies provides secure, tamper-proof internship certificates.
+        Enter your unique Certificate ID to instantly verify and download your credential.
+      </p>
+
+      <!-- ── SEARCH CARD ──────────────────────────────── -->
+      <div class="search-card glass-card anim-fade-up-delay-3 tilt-card" id="verify-section">
+        <div class="search-card-glow"></div>
+        <div class="search-card-header">
+          <div class="search-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div>
+            <h3>Verify Certificate</h3>
+            <p>Enter your Certificate ID below</p>
+          </div>
+        </div>
+
+        <div class="search-form">
+          <div class="search-input-wrap">
+            <span class="search-prefix">AMDOX-</span>
+            <input
+              type="text"
+              id="certIdInput"
+              class="search-input"
+              placeholder="e.g. 2024-0001"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <div class="input-scan-line"></div>
+          </div>
+          <button class="btn btn-primary btn-lg btn-3d" id="searchBtn" onclick="verifyCertificate()">
+            <span id="searchBtnText">Verify Now</span>
+            <span id="searchSpinner" class="spinner hidden"></span>
+            <div class="btn-shine"></div>
+          </button>
+        </div>
+
+        <div class="search-hint">
+          <span>💡</span>
+          <span>Your Certificate ID is printed on your internship certificate (e.g., AMDOX-2024-0001)</span>
+        </div>
+
+        <!-- Result area -->
+        <div id="searchResult"></div>
+      </div>
+
+      <!-- Hero Stats -->
+      <div class="hero-stats anim-fade-up-delay-4">
+        <div class="stat-item">
+          <div class="stat-num" data-count="2500">0</div>
+          <div class="stat-label">Certificates Issued</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num" data-count="15">0</div>
+          <div class="stat-label">Internship Domains</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num" data-count="100">0</div>
+          <div class="stat-label">% Tamper Proof</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Visual -->
+    <div class="hero-visual anim-float">
+      <div class="cert-3d-scene">
+        <div class="cert-preview-card glass-card tilt-card">
+          <div class="cert-hologram-overlay"></div>
+          <div class="cert-preview-header">
+            <div class="cert-logo-mini">A</div>
+            <div>
+              <div style="font-weight:700;font-size:0.9rem;">AMDOX Technologies</div>
+              <div style="font-size:0.7rem;color:var(--gold-400);">Certificate of Internship</div>
+            </div>
+          </div>
+          <div class="cert-preview-body">
+            <div class="cert-preview-line skeleton" style="width:60%;height:10px;"></div>
+            <div class="cert-preview-name">Rahul Sharma</div>
+            <div class="cert-preview-line skeleton" style="width:80%;height:8px;margin-top:8px;"></div>
+            <div class="cert-preview-line skeleton" style="width:50%;height:8px;margin-top:6px;"></div>
+          </div>
+          <div class="cert-preview-footer">
+            <div class="cert-verify-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified
+            </div>
+            <div style="font-size:0.65rem;color:var(--navy-200);font-family:var(--font-mono);">AMDOX-2024-0001</div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating badges -->
+      <div class="floating-badge fb-1 glass-card">🔒 Secure</div>
+      <div class="floating-badge fb-2 glass-card">⚡ Instant</div>
+      <div class="floating-badge fb-3 glass-card">📄 PDF Download</div>
+      
+      <!-- 3D Orbit rings -->
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ──────────────────────────────────────────── -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-header scroll-anim">
+      <div class="section-tag">Why Choose Us</div>
+      <h2>Built for <span class="gold-text">Trust & Efficiency</span></h2>
+      <p>Industry-grade certificate management with enterprise security</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">👤</div>
+        </div>
+        <h4>Role-Based Access</h4>
+        <p>Secure admin panel with encrypted login and session management. Full control over certificate lifecycle.</p>
+        <div class="feature-tags"><span>Admin</span><span>Secure Auth</span></div>
+      </div>
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">📊</div>
+        </div>
+        <h4>Bulk Excel Upload</h4>
+        <p>Upload hundreds of certificates at once via Excel. Smart validation catches errors before insertion.</p>
+        <div class="feature-tags"><span>XLSX</span><span>CSV</span></div>
+      </div>
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🎓</div>
+        </div>
+        <h4>Auto Certificate Generation</h4>
+        <p>Certificates auto-populate with student data. Professional design ready to print instantly.</p>
+        <div class="feature-tags"><span>Auto-fill</span><span>PDF</span></div>
+      </div>
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🔍</div>
+        </div>
+        <h4>Instant Verification</h4>
+        <p>Students verify certificates using unique IDs. Real-time lookup with zero delay.</p>
+        <div class="feature-tags"><span>Public</span><span>Real-time</span></div>
+      </div>
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">⬇️</div>
+        </div>
+        <h4>PDF Download</h4>
+        <p>Download print-ready certificates in PDF format. Pixel-perfect quality for professional use.</p>
+        <div class="feature-tags"><span>Print-ready</span><span>High-res</span></div>
+      </div>
+      <div class="feature-card glass-card scroll-anim tilt-card">
+        <div class="feature-glow"></div>
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🛡️</div>
+        </div>
+        <h4>Data Integrity</h4>
+        <p>Validation checks during import ensure accuracy. Encrypted storage prevents tampering.</p>
+        <div class="feature-tags"><span>Encrypted</span><span>Validated</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <div class="section-header scroll-anim">
+      <div class="section-tag">Process</div>
+      <h2>How It <span class="gold-text">Works</span></h2>
+      <p>Simple 3-step process to verify your internship certificate</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-item scroll-anim tilt-card">
+        <div class="step-3d-num">
+          <span>01</span>
+        </div>
+        <div class="step-icon">🆔</div>
+        <h4>Enter Certificate ID</h4>
+        <p>Type your unique certificate ID exactly as printed on your certificate.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-arrow">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="step-item scroll-anim tilt-card">
+        <div class="step-3d-num">
+          <span>02</span>
+        </div>
+        <div class="step-icon">🔎</div>
+        <h4>Instant Verification</h4>
+        <p>Our system instantly fetches and displays all your certificate details.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-arrow">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="step-item scroll-anim tilt-card">
+        <div class="step-3d-num">
+          <span>03</span>
+        </div>
+        <div class="step-icon">📥</div>
+        <h4>Download PDF</h4>
+        <p>Preview your certificate and download it as a high-quality PDF.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIAL / TRUST BAND ──────────────────────────── -->
+<section class="trust-section">
+  <div class="container">
+    <div class="trust-band glass-card scroll-anim">
+      <div class="trust-item">
+        <div class="trust-icon">🏆</div>
+        <div class="trust-num" data-count="99" data-suffix="%">0</div>
+        <div class="trust-label">Satisfaction Rate</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <div class="trust-num" data-count="50" data-suffix="+">0</div>
+        <div class="trust-label">Cities Reached</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-icon">⏱️</div>
+        <div class="trust-num" data-count="3" data-suffix="s">0</div>
+        <div class="trust-label">Avg. Verify Time</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-icon">🔐</div>
+        <div class="trust-num" data-count="256" data-suffix="-bit">0</div>
+        <div class="trust-label">Encryption</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:12px;">
+          <div class="logo-icon">A</div>
+          <div>
+            <div class="logo-name">AMDOX</div>
+            <div class="logo-sub">Technologies</div>
+          </div>
+        </div>
+        <p>Empowering students with verified credentials and trusted internship experiences.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Quick Links</h5>
+        <a href="#verify-section">Verify Certificate</a>
+        <a href="#features">Features</a>
+        <a href="pages/admin-login.html">Admin Login</a>
+      </div>
+      <div class="footer-links">
+        <h5>Contact</h5>
+        <span>info@amdox.in</span>
+        <span>amdox.in</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 AMDOX Technologies. All rights reserved.</span>
+      <span>Designed with ♥ for excellence</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Three.js via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>

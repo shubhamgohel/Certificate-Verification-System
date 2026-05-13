@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment variables - NEVER commit these!
+.env
+backend/.env
+*.env.local
+
+# Next.js
+backend/.next/
+backend/out/
+
+# Build outputs
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Uploads temp
+backend/uploads/
+backend/tmp/
