@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportVerse — Smart Sports Commerce</title>
+  <meta name="description"
+    content="Discover and purchase sports merchandise with AI-powered recommendations based on live matches, player performance, and your team loyalty.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+
+<body>
+  <!-- LIVE TICKER -->
+  <div class="live-ticker">
+    <div class="ticker-wrap" id="tickerWrap"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">Sport<span style="color:var(--secondary)">Verse</span></div>
+      <ul class="nav-links">
+        <li><a href="#live">Live Matches</a></li>
+        <li><a href="#trending">Trending</a></li>
+        <li><a href="#teams">Teams</a></li>
+        <li><a href="#players">Players</a></li>
+        <li><a href="#categories">Categories</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="Search jerseys, gear..." id="searchInput">
+        </div>
+        <button class="cart-btn" id="cartToggle" aria-label="Cart">🛒<span class="cart-count"
+            id="cartCount">0</span></button>
+        <button class="user-btn" id="userBtn" title="Preferences">S</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="max-width:100%;padding:0;">
+    <div class="hero-bg"><img src="assets/hero-banner.png" alt="Sports merchandise"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="live-dot"
+          style="width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 1.5s infinite"></span>
+        Live Contextual Shopping</div>
+      <h1>Gear Up With <span>Intelligence</span></h1>
+      <p>Discover merchandise that matters — powered by live matches, player performance, and your passion for the game.
+      </p>
+      <div class="hero-actions">
+        <a href="#trending" class="btn btn-primary">🔥 Shop Trending</a>
+        <a href="#" class="btn btn-outline" id="openPrefs">⚙️ Set Preferences</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">12K+</div>
+          <div class="stat-label">Products</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Teams</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Athletes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Happy Fans</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE MATCHES -->
+  <section id="live">
+    <div class="section-header">
+      <div>
+        <h2>🏟️ <span>Live</span> Matches</h2>
+        <p>Shop merch related to matches happening right now</p>
+      </div>
+      <a href="#" class="view-all">View All →</a>
+    </div>
+    <div class="matches-grid" id="matchesGrid"></div>
+  </section>
+
+  <!-- TRENDING -->
+  <section id="trending">
+    <div class="section-header">
+      <div>
+        <h2>🔥 <span>Trending</span> Now</h2>
+        <p>Products surging based on live events & player performance</p>
+      </div>
+      <a href="#" class="view-all">View All →</a>
+    </div>
+    <div class="products-grid" id="trendingGrid"></div>
+  </section>
+
+  <!-- FOR YOU -->
+  <section id="foryou">
+    <div class="section-header">
+      <div>
+        <h2>✨ Recommended <span>For You</span></h2>
+        <p>Personalized picks based on your team loyalty & preferences</p>
+      </div>
+      <a href="#" class="view-all">View All →</a>
+    </div>
+    <div class="products-grid" id="forYouGrid"></div>
+  </section>
+
+  <!-- TEAMS -->
+  <section id="teams">
+    <div class="section-header">
+      <div>
+        <h2>🏆 <span>Team</span> Loyalty Store</h2>
+        <p>Browse exclusive merch from your favorite teams</p>
+      </div>
+    </div>
+    <div class="teams-grid" id="teamsGrid"></div>
+  </section>
+
+  <!-- PLAYER PERFORMANCE -->
+  <section id="players">
+    <div class="section-header">
+      <div>
+        <h2>⚡ <span>Player</span> Performance Picks</h2>
+        <p>Top performing athletes & their trending merchandise</p>
+      </div>
+    </div>
+    <div class="perf-grid" id="perfGrid"></div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="section-header">
+      <div>
+        <h2>📦 Shop by <span>Category</span></h2>
+      </div>
+    </div>
+    <div class="categories-grid" id="categoriesGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Sport<span style="color:var(--secondary)">Verse</span></span>
+        <p>Your intelligent sports commerce platform. Recommendations powered by live data, player insights, and your
+          loyalty.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4><a href="#">Jerseys</a><a href="#">Equipment</a><a href="#">Footwear</a><a
+          href="#">Accessories</a><a href="#">Fan Gear</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sports</h4><a href="#">Cricket</a><a href="#">Football</a><a href="#">Basketball</a><a href="#">Tennis</a><a
+          href="#">F1 Racing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4><a href="#">Help Center</a><a href="#">Track Order</a><a href="#">Returns</a><a href="#">Contact
+          Us</a><a href="#">Size Guide</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SportVerse. All rights reserved.</span>
+      <span>Made with ⚡ for sports fans worldwide</span>
+    </div>
+  </footer>
+
+  <!-- PREFERENCE MODAL -->
+  <div class="modal-overlay" id="prefModal">
+    <div class="modal">
+      <h2>⚡ Personalize Your Experience</h2>
+      <p>Select your favorite sports and teams to get tailored recommendations.</p>
+      <div class="pref-section">
+        <h3>🏅 Favorite Sports</h3>
+        <div class="pref-options" id="sportsPref"></div>
+      </div>
+      <div class="pref-section">
+        <h3>🏟️ Favorite Teams</h3>
+        <div class="pref-options" id="teamsPref"></div>
+      </div>
+      <div class="pref-section">
+        <h3>🛍️ Interests</h3>
+        <div class="pref-options" id="interestsPref"></div>
+      </div>
+      <button class="btn btn-primary" id="savePrefs" style="width:100%;justify-content:center;margin-top:10px;">Save &
+        Discover →</button>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>🛒 Your Cart</h2>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
